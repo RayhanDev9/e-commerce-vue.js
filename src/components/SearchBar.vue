@@ -33,7 +33,7 @@ const emit = defineEmits<{
 <style scoped>
 .search-wrapper {
   position: relative;
-  min-width: 280px;
+  min-width: 0;
   max-width: 420px;
   width: 100%;
 }

@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { menuSortOptions } from "../data/menuData";
 
-
-
-const onlyDiscount  = defineModel<boolean>("onlyDiscount",{default : false})
-const onlySpicy = defineModel<boolean>("onlySpicy", {default : false});
-const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{default : "popular"})
+const onlyDiscount = defineModel<boolean>("onlyDiscount", { default: false });
+const onlySpicy = defineModel<boolean>("onlySpicy", { default: false });
+const sortBy = defineModel<"popular" | "price-asc" | "price-desc">("sortBy", { default: "popular" });
 </script>
 
 <template>
@@ -13,7 +11,7 @@ const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{d
     <div class="filter-chips">
       <button
         :class="['chip-btn', { active: onlyDiscount }]"
-        @click="onlyDiscount =!onlyDiscount"
+        @click="onlyDiscount = !onlyDiscount"
       >
         🔥 Ada Diskon
       </button>
@@ -46,17 +44,30 @@ const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{d
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 2rem;
   padding: 0.75rem 1rem;
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #f1f5f9;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .filter-bar {
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .filter-chips {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .chip-btn {
@@ -70,6 +81,15 @@ const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{d
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 360px) {
+  .chip-btn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
 }
 
 .chip-btn.active {
@@ -83,12 +103,25 @@ const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{d
   align-items: center;
   gap: 0.5rem;
   margin-left: auto;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .sort-wrapper {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #f1f5f9;
+  }
 }
 
 .sort-label {
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   color: #64748b;
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .sort-select {
@@ -96,11 +129,12 @@ const sortBy = defineModel< "popular" | "price-asc" | "price-desc"> ("sortBy",{d
   border-radius: 8px;
   border: 1px solid #e2e8f0;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: #334155;
   background-color: #ffffff;
   cursor: pointer;
   outline: none;
+  min-width: 0;
 }
 </style>

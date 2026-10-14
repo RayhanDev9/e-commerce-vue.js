@@ -30,6 +30,9 @@ const emit = defineEmits<{
 <style scoped>
 .category-section {
   margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .category-pills {
@@ -39,6 +42,10 @@ const emit = defineEmits<{
   padding-bottom: 0.5rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .category-pills::-webkit-scrollbar {
@@ -46,7 +53,7 @@ const emit = defineEmits<{
 }
 
 .pill-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.15rem;
@@ -61,6 +68,26 @@ const emit = defineEmits<{
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .pill-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.825rem;
+    gap: 0.4rem;
+  }
+}
+
+.pill-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pill-label {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .pill-btn:hover {

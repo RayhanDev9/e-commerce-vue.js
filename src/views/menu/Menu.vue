@@ -143,9 +143,17 @@ const resetFilter = () => {
   padding: 1.5rem 1rem 4rem;
 }
 
+@media (max-width: 480px) {
+  .menu-page {
+    padding: 1rem 0.75rem 3.5rem;
+  }
+}
+
 .menu-container {
   max-width: 1280px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product-grid {
