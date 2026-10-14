@@ -66,17 +66,30 @@ const activeImage = computed(() => {
 .gallery-column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .gallery-column {
+    gap: 1rem;
+  }
 }
 
 .main-image-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   background-color: #f1f5f9;
   border: 1px solid #e2e8f0;
+}
+
+@media (min-width: 768px) {
+  .main-image-wrapper {
+    border-radius: 16px;
+  }
 }
 
 .main-image {
@@ -92,9 +105,9 @@ const activeImage = computed(() => {
 
 .floating-badges {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
+  top: 12px;
+  left: 12px;
+  right: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,9 +117,9 @@ const activeImage = computed(() => {
 .badge-discount {
   background: #ef4444;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
 }
@@ -115,28 +128,28 @@ const activeImage = computed(() => {
   background: #fef2f2;
   color: #dc2626;
   border: 1px solid #fecaca;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 8px;
   backdrop-filter: blur(4px);
 }
 
 .floating-bottom-badges {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  bottom: 12px;
+  left: 12px;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   pointer-events: none;
 }
 
 .badge-halal {
   background-color: #10b981;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
 }
@@ -144,18 +157,19 @@ const activeImage = computed(() => {
 .badge-veg {
   background-color: #d1fae5;
   color: #065f46;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 8px;
 }
 
 .thumbnail-list {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
   overflow-x: auto;
   padding-bottom: 0.25rem;
   scrollbar-width: none;
+  width: 100%;
 }
 
 .thumbnail-list::-webkit-scrollbar {
@@ -163,9 +177,9 @@ const activeImage = computed(() => {
 }
 
 .thumb-button {
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
   overflow: hidden;
   border: 2px solid #e2e8f0;
   padding: 0;
@@ -173,6 +187,14 @@ const activeImage = computed(() => {
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .thumb-button {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+  }
 }
 
 .thumb-button.active {

@@ -70,7 +70,7 @@ const handleAddToCart = () => {
 
       <!-- 4. Main Detail Content -->
       <article v-else class="detail-card">
-        <!-- Kolom Kiri: Foto Produk + Deskripsi & Bahan/Rempah -->
+        <!-- Kolom Kiri: Foto Produk + Deskripsi Desktop -->
         <div class="left-column">
           <MenuDetailGallery
             :images="product.images"
@@ -82,7 +82,9 @@ const handleAddToCart = () => {
             :is-vegetarian="product.isVegetarian"
           />
 
+          <!-- Deskripsi versi desktop (di bawah foto pada layar lebar) -->
           <MenuDetailDescription
+            class="desktop-description"
             :description="product.description"
             :ingredients="product.ingredients"
           />
@@ -97,6 +99,13 @@ const handleAddToCart = () => {
             :stock="product.stock"
             v-model:quantity="quantity"
             @add-to-cart="handleAddToCart"
+          />
+
+          <!-- Deskripsi versi mobile (di bawah form pemesanan pada layar sempit) -->
+          <MenuDetailDescription
+            class="mobile-description"
+            :description="product.description"
+            :ingredients="product.ingredients"
           />
         </div>
       </article>
@@ -114,10 +123,12 @@ const handleAddToCart = () => {
   color: #1e293b;
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   padding: 1.5rem 1rem 3.5rem;
+  width: 100%;
 }
 
 .menu-detail-container {
   max-width: 1180px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -129,7 +140,8 @@ const handleAddToCart = () => {
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.25rem;
+  gap: 2rem;
+  width: 100%;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -141,10 +153,53 @@ const handleAddToCart = () => {
   }
 }
 
+@media (max-width: 768px) {
+  .menu-detail-page {
+    padding: 1rem 0.85rem 3rem;
+  }
+  .detail-card {
+    padding: 1.25rem;
+    gap: 1.5rem;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-detail-page {
+    padding: 0.85rem 0.65rem 2.5rem;
+  }
+  .detail-card {
+    padding: 1rem;
+    gap: 1.25rem;
+    border-radius: 12px;
+  }
+}
+
 .left-column,
 .right-column {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Deskripsi visibility switches */
+.desktop-description {
+  display: flex;
+}
+
+.mobile-description {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .desktop-description {
+    display: none !important;
+  }
+  .mobile-description {
+    display: flex !important;
+    margin-top: 1.5rem;
+  }
 }
 
 .error-container {

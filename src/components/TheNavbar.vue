@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { useCartStore } from "@/stores/useCart";
 import { useAuthStore } from "@/stores/useAuth";
@@ -11,6 +12,8 @@ import {
   LogOut,
   Shield,
   User as UserIcon,
+  Menu as MenuIcon,
+  X as XIcon,
 } from "lucide-vue-next";
 
 const route = useRoute();
@@ -18,7 +21,26 @@ const router = useRouter();
 const cartStore = useCartStore();
 const authStore = useAuthStore();
 
+const isMobileMenuOpen = ref(false);
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false;
+};
+
+// Tutup menu mobile jika rute berganti
+watch(
+  () => route.path,
+  () => {
+    isMobileMenuOpen.value = false;
+  }
+);
+
 const handleLogout = () => {
+  closeMobileMenu();
   authStore.logout();
   router.push("/login");
 };
@@ -28,7 +50,7 @@ const handleLogout = () => {
   <header class="app-navbar">
     <div class="navbar-container">
       <!-- 1. Brand Logo -->
-      <RouterLink to="/menu" class="brand-link">
+      <RouterLink to="/menu" class="brand-link" @click="closeMobileMenu">
         <div class="brand-icon-box">
           <UtensilsCrossed :size="22" class="brand-icon" />
         </div>
@@ -38,8 +60,38 @@ const handleLogout = () => {
         </div>
       </RouterLink>
 
-      <!-- 2. Nav Action Links -->
-      <nav class="nav-menu">
+      <!-- 2. Mobile Actions (< md: Cart Quick Button + Hamburger Toggle) -->
+      <div class="mobile-actions">
+        <!-- Quick Cart Shortcut on Mobile -->
+        <RouterLink
+          to="/cart"
+          class="mobile-cart-btn"
+          :class="{ active: route.path === '/cart' }"
+          title="Keranjang Belanja"
+          @click="closeMobileMenu"
+        >
+          <ShoppingCart :size="20" class="cart-svg-icon" />
+          <span v-if="cartStore.totalItems > 0" class="cart-counter-badge">
+            {{ cartStore.totalItems > 99 ? '99+' : cartStore.totalItems }}
+          </span>
+        </RouterLink>
+
+        <!-- Hamburger Toggle Button -->
+        <button
+          type="button"
+          class="btn-hamburger"
+          :class="{ 'is-active': isMobileMenuOpen }"
+          :aria-expanded="isMobileMenuOpen"
+          aria-label="Menu navigasi"
+          @click="toggleMobileMenu"
+        >
+          <XIcon v-if="isMobileMenuOpen" :size="22" class="hamburger-icon" />
+          <MenuIcon v-else :size="22" class="hamburger-icon" />
+        </button>
+      </div>
+
+      <!-- 3. Desktop Nav Action Links (>= md) -->
+      <nav class="nav-menu desktop-nav">
         <!-- Link Menu -->
         <RouterLink
           to="/menu"
@@ -81,7 +133,7 @@ const handleLogout = () => {
 
         <div class="nav-divider"></div>
 
-        <!-- 3. User Authentication Controls -->
+        <!-- 4. User Authentication Controls (Desktop) -->
         <!-- Jika Belum Login -->
         <RouterLink
           v-if="!authStore.isAuthenticated"
@@ -128,24 +180,129 @@ const handleLogout = () => {
         </div>
       </nav>
     </div>
+
+    <!-- 5. Mobile Backdrop Overlay (< md) -->
+    <Transition name="fade">
+      <div
+        v-if="isMobileMenuOpen"
+        class="mobile-backdrop"
+        @click="closeMobileMenu"
+      ></div>
+    </Transition>
+
+    <!-- 6. Mobile Menu Drawer (< md) -->
+    <Transition name="slide-down">
+      <nav v-if="isMobileMenuOpen" class="mobile-drawer">
+        <!-- Profile info jika login -->
+        <div v-if="authStore.isAuthenticated" class="mobile-profile-card">
+          <div class="mobile-avatar-wrap">
+            <img
+              v-if="authStore.currentUser?.avatar"
+              :src="authStore.currentUser.avatar"
+              :alt="authStore.userName"
+              class="mobile-avatar-img"
+            />
+            <UserIcon v-else :size="20" />
+          </div>
+          <div class="mobile-user-details">
+            <span class="mobile-user-name">{{ authStore.userName }}</span>
+            <span
+              class="user-role-pill"
+              :class="authStore.isAdmin ? 'role-admin' : 'role-customer'"
+            >
+              <Shield v-if="authStore.isAdmin" :size="11" />
+              <span>{{ authStore.isAdmin ? 'Admin' : 'Pelanggan' }}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Links List -->
+        <div class="mobile-nav-links">
+          <RouterLink
+            to="/menu"
+            class="mobile-nav-item"
+            :class="{ active: route.path.startsWith('/menu') }"
+            @click="closeMobileMenu"
+          >
+            <div class="mobile-nav-icon-box">
+              <Utensils :size="18" />
+            </div>
+            <span class="mobile-nav-label">Menu Makanan</span>
+          </RouterLink>
+
+          <RouterLink
+            v-if="authStore.isAdmin"
+            to="/admin"
+            class="mobile-nav-item"
+            :class="{ active: route.path.startsWith('/admin') }"
+            @click="closeMobileMenu"
+          >
+            <div class="mobile-nav-icon-box">
+              <Settings :size="18" />
+            </div>
+            <span class="mobile-nav-label">Kelola Menu (Admin)</span>
+            <span class="mobile-tag-admin">Admin</span>
+          </RouterLink>
+
+          <RouterLink
+            to="/cart"
+            class="mobile-nav-item"
+            :class="{ active: route.path === '/cart' }"
+            @click="closeMobileMenu"
+          >
+            <div class="mobile-nav-icon-box">
+              <ShoppingCart :size="18" />
+            </div>
+            <span class="mobile-nav-label">Keranjang Belanja</span>
+            <span v-if="cartStore.totalItems > 0" class="mobile-tag-cart">
+              {{ cartStore.totalItems }} item
+            </span>
+          </RouterLink>
+        </div>
+
+        <!-- Auth Buttons -->
+        <div class="mobile-auth-footer">
+          <RouterLink
+            v-if="!authStore.isAuthenticated"
+            to="/login"
+            class="mobile-btn-login"
+            @click="closeMobileMenu"
+          >
+            <LogIn :size="18" />
+            <span>Masuk ke Akun</span>
+          </RouterLink>
+
+          <button
+            v-else
+            type="button"
+            class="mobile-btn-logout"
+            @click="handleLogout"
+          >
+            <LogOut :size="18" />
+            <span>Keluar dari Akun</span>
+          </button>
+        </div>
+      </nav>
+    </Transition>
   </header>
 </template>
 
 <style scoped>
 /* ==========================================================================
-   THEME KONSISTENSI THAM.TXT (NAVBAR)
+   THEME NAVBAR WITH RESPONSIVE HAMBURGER (< md)
    ========================================================================== */
 
 .app-navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.94);
+  background-color: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  width: 100%;
 }
 
 .navbar-container {
@@ -164,6 +321,7 @@ const handleLogout = () => {
   gap: 0.75rem;
   text-decoration: none;
   transition: transform 0.2s ease;
+  user-select: none;
 }
 
 .brand-link:hover {
@@ -179,6 +337,7 @@ const handleLogout = () => {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(255, 90, 31, 0.28);
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -199,7 +358,7 @@ const handleLogout = () => {
 }
 
 .brand-highlight {
-  color: #ff5a1f; /* Primary Brand */
+  color: #ff5a1f;
 }
 
 .brand-badge {
@@ -210,11 +369,17 @@ const handleLogout = () => {
   letter-spacing: 0.08em;
 }
 
-/* NAV LINKS */
-.nav-menu {
-  display: flex;
+/* DESKTOP NAV LINKS (>= md) */
+.desktop-nav {
+  display: none;
   align-items: center;
   gap: 0.65rem;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
 }
 
 .nav-item {
@@ -226,7 +391,7 @@ const handleLogout = () => {
   font-weight: 600;
   color: #475569;
   padding: 0.55rem 0.95rem;
-  border-radius: 9999px; /* Pill */
+  border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -432,19 +597,300 @@ const handleLogout = () => {
   color: #dc2626;
 }
 
-@media (max-width: 640px) {
-  .brand-badge {
+/* ==========================================================================
+   MOBILE BAR & HAMBURGER (< md, < 768px)
+   ========================================================================== */
+
+.mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-actions {
     display: none;
   }
-  .cart-text {
-    display: none;
+}
+
+.mobile-cart-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-cart-btn:hover,
+.mobile-cart-btn.active {
+  background-color: #fff1eb;
+  color: #ff5a1f;
+  border-color: #ffccbc;
+}
+
+.mobile-cart-btn .cart-counter-badge {
+  top: -6px;
+  right: -6px;
+}
+
+.btn-hamburger {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.btn-hamburger:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.btn-hamburger.is-active {
+  background-color: #fff1eb;
+  color: #ff5a1f;
+  border-color: #ffccbc;
+}
+
+.hamburger-icon {
+  stroke-width: 2.2;
+}
+
+/* MOBILE BACKDROP */
+.mobile-backdrop {
+  position: fixed;
+  top: 61px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 90;
+}
+
+@media (min-width: 768px) {
+  .mobile-backdrop {
+    display: none !important;
   }
-  .user-info-text {
-    display: none;
+}
+
+/* MOBILE DRAWER / MENU */
+.mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 95;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .mobile-drawer {
+    display: none !important;
   }
-  .nav-item {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
-  }
+}
+
+/* PROFILE CARD IN MOBILE DRAWER */
+.mobile-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.mobile-avatar-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.mobile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mobile-user-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* MOBILE NAV LINKS */
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #334155;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+}
+
+.mobile-nav-item:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.mobile-nav-item.active {
+  background-color: #fff1eb;
+  color: #ff5a1f;
+  font-weight: 700;
+  border-color: #ffccbc;
+}
+
+.mobile-nav-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-item.active .mobile-nav-icon-box {
+  background-color: #ff5a1f;
+  color: #ffffff;
+}
+
+.mobile-nav-label {
+  flex: 1;
+}
+
+.mobile-tag-admin {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.mobile-tag-cart {
+  font-size: 0.75rem;
+  font-weight: 800;
+  background-color: #ff5a1f;
+  color: #ffffff;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+/* MOBILE AUTH FOOTER */
+.mobile-auth-footer {
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.mobile-btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #ff5a1f 0%, #ff3d00 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.25);
+}
+
+.mobile-btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-btn-logout:hover {
+  background-color: #fecaca;
+}
+
+/* ANIMATIONS */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

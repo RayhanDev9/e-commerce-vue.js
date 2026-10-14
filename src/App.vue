@@ -20,9 +20,12 @@ import { TheNavbar } from "@/components";
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .app-main {
   flex: 1;
+  width: 100%;
 }
 </style>

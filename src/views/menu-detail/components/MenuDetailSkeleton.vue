@@ -30,7 +30,8 @@
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.25rem;
+  gap: 2rem;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
@@ -38,6 +39,22 @@
     grid-template-columns: 460px 1fr;
     gap: 3rem;
     padding: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-card {
+    padding: 1.25rem;
+    gap: 1.5rem;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-card {
+    padding: 1rem;
+    gap: 1.25rem;
+    border-radius: 12px;
   }
 }
 
@@ -64,18 +81,34 @@
 .skeleton-main-image {
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 16px;
-  margin-bottom: 1rem;
+  border-radius: 14px;
+  margin-bottom: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .skeleton-main-image {
+    border-radius: 16px;
+    margin-bottom: 1rem;
+  }
 }
 
 .skeleton-thumbs {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .skeleton-thumb {
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .skeleton-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+  }
 }
 
 .skeleton-info {
@@ -114,8 +147,8 @@
 }
 
 .skeleton-action-bar {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   width: 100%;
-  height: 60px;
+  height: 52px;
 }
 </style>

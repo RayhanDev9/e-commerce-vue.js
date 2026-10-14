@@ -104,46 +104,49 @@ const discountPercent = computed(() => {
 .info-column {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .header-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
   margin-bottom: 0.75rem;
 }
 
 .category-pill {
   background-color: #fff1eb;
   color: #ff5a1f;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
 }
 
 .custom-tag {
   background-color: #f1f5f9;
   color: #475569;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 600;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
 }
 
 .product-title {
-  font-size: 1.85rem;
+  font-size: 1.45rem;
   font-weight: 800;
   line-height: 1.25;
   color: #1e293b;
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.75rem;
+  word-break: break-word;
 }
 
 @media (min-width: 768px) {
   .product-title {
     font-size: 2.15rem;
+    margin-bottom: 0.85rem;
   }
 }
 
@@ -151,10 +154,18 @@ const discountPercent = computed(() => {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  font-size: 0.875rem;
+  gap: 0.5rem;
+  font-size: 0.825rem;
   color: #64748b;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .meta-row {
+    font-size: 0.875rem;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .rating-box {
@@ -165,7 +176,7 @@ const discountPercent = computed(() => {
 
 .star-icon {
   color: #f59e0b;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .rating-score {
@@ -191,92 +202,142 @@ const discountPercent = computed(() => {
   font-weight: 700;
 }
 
-/* PRICE DISPLAY SECTION (DUA HARGA: NORMAL & DISKON) */
+/* PRICE DISPLAY SECTION */
 .price-section {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.15rem 1.4rem;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
   background-color: #f8fafc;
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid #e2e8f0;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.35rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .price-section {
+    gap: 1.25rem;
+    padding: 1.15rem 1.4rem;
+    border-radius: 16px;
+    margin-bottom: 1.75rem;
+  }
 }
 
 .price-box {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
 .price-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .price-normal-val {
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: #94a3b8;
   font-weight: 600;
   text-decoration: line-through;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .price-normal-val {
+    font-size: 1.15rem;
+  }
 }
 
 .price-separator {
   width: 1px;
-  height: 48px;
+  height: 40px;
   background-color: #e2e8f0;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .price-separator {
+    height: 48px;
+  }
 }
 
 .discount-box {
   flex: 1;
+  min-width: 0;
 }
 
 .price-discount-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .discount-badge-pill {
   background-color: #ef4444;
   color: #ffffff;
-  font-size: 0.7rem;
+  font-size: 0.675rem;
   font-weight: 800;
-  padding: 0.15rem 0.5rem;
+  padding: 0.15rem 0.45rem;
   border-radius: 6px;
 }
 
 .price-discount-val {
-  font-size: 1.85rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: #ff5a1f;
-  line-height: 1.1;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .price-discount-val {
+    font-size: 1.85rem;
+    line-height: 1.1;
+  }
 }
 
 .section-title {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1e293b;
   margin: 0 0 0.65rem;
 }
 
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 1.05rem;
+  }
+}
+
 /* NUTRITION GRID */
 .nutrition-section {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.35rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .nutrition-section {
+    margin-bottom: 1.75rem;
+  }
 }
 
 .nutrition-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  width: 100%;
 }
 
-@media (max-width: 500px) {
+@media (min-width: 540px) {
   .nutrition-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
   }
 }
 
@@ -284,7 +345,7 @@ const discountPercent = computed(() => {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 0.75rem 0.5rem;
+  padding: 0.65rem 0.45rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -292,13 +353,13 @@ const discountPercent = computed(() => {
 }
 
 .nutrition-value {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: #ff5a1f;
 }
 
 .nutrition-label {
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   color: #64748b;
   font-weight: 500;
 }

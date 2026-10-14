@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router/index.ts";
 import { VueQueryPlugin } from "@tanstack/vue-query";
+import "./style.css";
 
 const app = createApp(App);
 const pinia = createPinia();
