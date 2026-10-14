@@ -97,7 +97,7 @@ const paymentOptions: PaymentOption[] = [
             </div>
             <span class="opt-estimate">⏱️ {{ opt.estimate }}</span>
             <span class="opt-price">
-              {{ opt.price === 0 ? 'Rp 0 (Promo Free Delivery)' : 'Rp 10.000' }}
+              {{ opt.price === 0 ? 'Rp 0 (Gratis Ongkir)' : 'Rp 10.000' }}
             </span>
           </div>
         </label>
@@ -146,22 +146,31 @@ const paymentOptions: PaymentOption[] = [
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
-  padding: 1.75rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
 @media (max-width: 500px) {
   .checkout-card {
-    padding: 1.15rem 1rem;
+    padding: 1rem 0.85rem;
     border-radius: 14px;
   }
 }
 
+@media (max-width: 360px) {
+  .checkout-card {
+    padding: 0.85rem 0.65rem;
+    border-radius: 12px;
+  }
+}
+
 .mt-block {
-  margin-top: 1.5rem;
-  padding-top: 1.35rem;
+  margin-top: 1.35rem;
+  padding-top: 1.25rem;
   border-top: 1px dashed #e2e8f0;
 }
 
@@ -175,9 +184,10 @@ const paymentOptions: PaymentOption[] = [
 .card-header {
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
-  margin-bottom: 1.15rem;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
   width: 100%;
+  min-width: 0;
 }
 
 .header-text-group {
@@ -186,8 +196,8 @@ const paymentOptions: PaymentOption[] = [
 }
 
 .step-num {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ff6b35 0%, #ff3d00 100%);
   color: #ffffff;
@@ -195,57 +205,60 @@ const paymentOptions: PaymentOption[] = [
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .step-num {
-    width: 28px;
-    height: 28px;
-    font-size: 0.85rem;
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
   }
 }
 
 .card-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: #1e293b;
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.15rem;
   word-break: break-word;
+  line-height: 1.3;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .card-title {
-    font-size: 1.05rem;
-    line-height: 1.3;
+    font-size: 0.925rem;
   }
 }
 
 .card-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #64748b;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .card-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 }
 
 /* SHIPPING OPTIONS GRID */
 .options-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.85rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 @media (min-width: 600px) {
   .options-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
   }
 }
@@ -253,20 +266,20 @@ const paymentOptions: PaymentOption[] = [
 .option-pill {
   position: relative;
   display: flex;
-  padding: 0.9rem 1rem;
+  padding: 0.8rem 0.85rem;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   cursor: pointer;
   background-color: #f8fafc;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 360px) {
   .option-pill {
-    padding: 1.1rem;
-    border-radius: 14px;
+    padding: 0.7rem 0.75rem;
   }
 }
 
@@ -290,7 +303,7 @@ const paymentOptions: PaymentOption[] = [
 .option-content {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
   width: 100%;
   min-width: 0;
 }
@@ -299,19 +312,28 @@ const paymentOptions: PaymentOption[] = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  width: 100%;
 }
 
 .opt-name {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #1e293b;
+  min-width: 0;
+  word-break: break-word;
+}
+
+@media (max-width: 360px) {
+  .opt-name {
+    font-size: 0.8rem;
+  }
 }
 
 .opt-badge {
-  font-size: 0.675rem;
+  font-size: 0.65rem;
   font-weight: 800;
-  padding: 0.15rem 0.45rem;
+  padding: 0.15rem 0.4rem;
   border-radius: 9999px;
   background-color: #ffedd5;
   color: #c2410c;
@@ -324,15 +346,16 @@ const paymentOptions: PaymentOption[] = [
 }
 
 .opt-estimate {
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   color: #64748b;
+  word-break: break-word;
 }
 
 .opt-price {
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 800;
   color: #ff5a1f;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
   word-break: break-word;
 }
 
@@ -340,29 +363,31 @@ const paymentOptions: PaymentOption[] = [
 .options-vertical {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.65rem;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .payment-option-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 1rem;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
   background-color: #f8fafc;
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 360px) {
   .payment-option-row {
-    padding: 1rem 1.25rem;
-    gap: 1rem;
-    border-radius: 14px;
+    padding: 0.65rem 0.75rem;
+    gap: 0.5rem;
   }
 }
 
@@ -378,14 +403,8 @@ const paymentOptions: PaymentOption[] = [
 }
 
 .pay-icon {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   flex-shrink: 0;
-}
-
-@media (min-width: 600px) {
-  .pay-icon {
-    font-size: 1.5rem;
-  }
 }
 
 .pay-info {
@@ -397,15 +416,22 @@ const paymentOptions: PaymentOption[] = [
 }
 
 .pay-name {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: #1e293b;
   word-break: break-word;
 }
 
+@media (max-width: 360px) {
+  .pay-name {
+    font-size: 0.8rem;
+  }
+}
+
 .pay-desc {
-  font-size: 0.725rem;
+  font-size: 0.7rem;
   color: #64748b;
   line-height: 1.3;
+  word-break: break-word;
 }
 
 .custom-radio-check {
@@ -418,13 +444,6 @@ const paymentOptions: PaymentOption[] = [
   justify-content: center;
   flex-shrink: 0;
   transition: all 0.2s;
-}
-
-@media (min-width: 600px) {
-  .custom-radio-check {
-    width: 20px;
-    height: 20px;
-  }
 }
 
 .payment-option-row.active .custom-radio-check {

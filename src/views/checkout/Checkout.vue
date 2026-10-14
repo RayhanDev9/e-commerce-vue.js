@@ -148,6 +148,7 @@ const handleSubmitOrder = async () => {
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   padding: 1.5rem 1rem 4rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 500px) {
@@ -156,23 +157,32 @@ const handleSubmitOrder = async () => {
   }
 }
 
+@media (max-width: 360px) {
+  .checkout-page {
+    padding: 0.75rem 0.5rem 3rem;
+  }
+}
+
 .checkout-container {
   max-width: 1180px;
   width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .checkout-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
   align-items: start;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 @media (min-width: 960px) {
   .checkout-grid {
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: minmax(0, 1fr) 400px;
     gap: 2.5rem;
   }
 }
@@ -182,5 +192,6 @@ const handleSubmitOrder = async () => {
   flex-direction: column;
   width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 </style>

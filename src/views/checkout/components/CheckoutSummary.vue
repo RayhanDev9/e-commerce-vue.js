@@ -67,12 +67,12 @@ const emit = defineEmits<{
         </div>
 
         <div class="breakdown-row">
-          <span class="label">Biaya Layanan & Pengemasan</span>
+          <span class="label">Layanan & Kemasan</span>
           <span class="value">{{ useFormatCurrency(serviceFee) }}</span>
         </div>
 
         <div v-if="voucherDiscount > 0" class="breakdown-row promo-row">
-          <span class="label">Voucher Promo Diskon</span>
+          <span class="label">Voucher Promo</span>
           <span class="value">-{{ useFormatCurrency(voucherDiscount) }}</span>
         </div>
       </div>
@@ -103,7 +103,7 @@ const emit = defineEmits<{
       </button>
 
       <div class="guarantee-box">
-        <span>🛡️ Jaminan 100% makanan higienis & terkirim hangat</span>
+        <span>🛡️ Makanan higienis & terkirim hangat</span>
       </div>
     </div>
   </aside>
@@ -114,22 +114,34 @@ const emit = defineEmits<{
   position: sticky;
   top: 1.5rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .summary-card {
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
-  padding: 1.75rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
 @media (max-width: 500px) {
   .summary-card {
-    padding: 1.15rem 1rem;
+    padding: 1rem 0.85rem;
     border-radius: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .summary-card {
+    padding: 0.85rem 0.65rem;
+    border-radius: 12px;
   }
 }
 
@@ -153,10 +165,11 @@ const emit = defineEmits<{
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
+  min-width: 0;
 }
 
 .mini-section-label {
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   font-weight: 700;
   color: #64748b;
   text-transform: uppercase;
@@ -167,24 +180,26 @@ const emit = defineEmits<{
 .mini-items-list {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.6rem;
   max-height: 220px;
   overflow-y: auto;
   padding-right: 0.25rem;
   width: 100%;
+  min-width: 0;
 }
 
 .mini-item-row {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
   font-size: 0.8rem;
   width: 100%;
+  min-width: 0;
 }
 
 .mini-thumb {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
@@ -197,7 +212,7 @@ const emit = defineEmits<{
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
 }
 
 .mini-item-name {
@@ -209,7 +224,7 @@ const emit = defineEmits<{
 }
 
 .mini-item-meta {
-  font-size: 0.725rem;
+  font-size: 0.7rem;
   color: #94a3b8;
 }
 
@@ -217,13 +232,13 @@ const emit = defineEmits<{
   font-weight: 700;
   color: #1e293b;
   flex-shrink: 0;
-  font-size: 0.8rem;
+  font-size: 0.775rem;
 }
 
 .summary-divider {
   height: 1px;
   background-color: #e2e8f0;
-  margin: 1rem 0;
+  margin: 0.85rem 0;
   border-top: 1px dashed #e2e8f0;
 }
 
@@ -237,17 +252,19 @@ const emit = defineEmits<{
 .breakdown-list {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.55rem;
   width: 100%;
+  min-width: 0;
 }
 
 .breakdown-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.825rem;
-  gap: 0.5rem;
+  font-size: 0.8rem;
+  gap: 0.4rem;
   width: 100%;
+  min-width: 0;
 }
 
 @media (min-width: 600px) {
@@ -285,9 +302,10 @@ const emit = defineEmits<{
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
-  gap: 0.5rem;
+  margin-bottom: 1.15rem;
+  gap: 0.4rem;
   width: 100%;
+  min-width: 0;
 }
 
 @media (min-width: 600px) {
@@ -299,22 +317,22 @@ const emit = defineEmits<{
 .total-label-box {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
 }
 
 .total-label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #1e293b;
 }
 
 .tax-info {
-  font-size: 0.7rem;
+  font-size: 0.675rem;
   color: #94a3b8;
 }
 
 .total-amount {
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #ff5a1f;
   line-height: 1;
@@ -322,9 +340,9 @@ const emit = defineEmits<{
   flex-shrink: 0;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 480px) {
   .total-amount {
-    font-size: 1.85rem;
+    font-size: 1.75rem;
   }
 }
 
@@ -338,14 +356,14 @@ const emit = defineEmits<{
   color: #ffffff;
   border: none;
   border-radius: 9999px;
-  padding: 0.85rem;
+  padding: 0.8rem;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(255, 90, 31, 0.3);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 48px;
+  min-height: 44px;
 }
 
 @media (min-width: 600px) {
@@ -370,17 +388,17 @@ const emit = defineEmits<{
 .btn-content {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .arrow {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1;
 }
 
 .spinner {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-top-color: #ffffff;
   border-radius: 50%;
@@ -395,8 +413,9 @@ const emit = defineEmits<{
 
 .guarantee-box {
   text-align: center;
-  margin-top: 0.85rem;
-  font-size: 0.725rem;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
   color: #94a3b8;
+  word-break: break-word;
 }
 </style>

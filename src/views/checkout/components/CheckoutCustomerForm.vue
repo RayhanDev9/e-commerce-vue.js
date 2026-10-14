@@ -78,7 +78,7 @@ defineProps<{
           v-model="customer.notes"
           type="text"
           class="form-input"
-          placeholder="Contoh: Rumah cat hijau samping masjid, pagar hitam"
+          placeholder="Contoh: Rumah cat hijau samping masjid"
         />
       </div>
     </div>
@@ -90,29 +90,39 @@ defineProps<{
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
-  padding: 1.75rem;
+  padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
 @media (max-width: 500px) {
   .checkout-card {
-    padding: 1.15rem 1rem;
+    padding: 1rem 0.85rem;
     border-radius: 14px;
-    margin-bottom: 1.15rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .checkout-card {
+    padding: 0.85rem 0.65rem;
+    border-radius: 12px;
   }
 }
 
 .card-header {
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.85rem;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px dashed #e2e8f0;
   width: 100%;
+  min-width: 0;
 }
 
 .header-text-group {
@@ -121,8 +131,8 @@ defineProps<{
 }
 
 .step-num {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ff6b35 0%, #ff3d00 100%);
   color: #ffffff;
@@ -130,56 +140,59 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .step-num {
-    width: 28px;
-    height: 28px;
-    font-size: 0.85rem;
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
   }
 }
 
 .card-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: #1e293b;
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.15rem;
   word-break: break-word;
+  line-height: 1.3;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .card-title {
-    font-size: 1.05rem;
-    line-height: 1.3;
+    font-size: 0.925rem;
   }
 }
 
 .card-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #64748b;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .card-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 @media (min-width: 600px) {
   .form-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.1rem;
   }
 }
@@ -191,20 +204,22 @@ defineProps<{
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.3rem;
   width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .form-label {
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #334155;
+  word-break: break-word;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .form-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -215,30 +230,31 @@ defineProps<{
 .optional {
   font-weight: 500;
   color: #94a3b8;
-  font-size: 0.75rem;
+  font-size: 0.725rem;
 }
 
 .form-input,
 .form-textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   background-color: #f8fafc;
   border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   color: #1e293b;
   outline: none;
   transition: all 0.2s ease;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 360px) {
   .form-input,
   .form-textarea {
-    padding: 0.65rem 0.8rem;
-    font-size: 0.825rem;
-    border-radius: 10px;
+    padding: 0.55rem 0.65rem;
+    font-size: 0.775rem;
   }
 }
 
@@ -256,8 +272,9 @@ defineProps<{
 }
 
 .error-msg {
-  font-size: 0.75rem;
+  font-size: 0.725rem;
   color: #dc2626;
   font-weight: 600;
+  word-break: break-word;
 }
 </style>

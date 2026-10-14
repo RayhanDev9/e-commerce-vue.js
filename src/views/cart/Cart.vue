@@ -155,15 +155,17 @@ const handleCheckout = () => {
 
 .cart-content-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 @media (min-width: 960px) {
   .cart-content-grid {
-    grid-template-columns: 1fr 380px;
+    grid-template-columns: minmax(0, 1fr) 380px;
     gap: 2.5rem;
   }
 }

@@ -893,4 +893,27 @@ const handleLogout = () => {
   opacity: 0;
   transform: translateY(-10px);
 }
+
+@media (max-width: 360px) {
+  .navbar-container {
+    padding: 0.65rem 0.65rem;
+  }
+  .brand-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+  .brand-name {
+    font-size: 1.05rem;
+  }
+  .brand-badge {
+    display: none;
+  }
+  .mobile-cart-btn,
+  .btn-hamburger {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+}
 </style>
