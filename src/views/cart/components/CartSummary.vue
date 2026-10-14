@@ -34,7 +34,7 @@ const handleApply = () => {
           v-model="voucherCode"
           type="text"
           class="voucher-input"
-          placeholder="Kode Promo (coba: MAKANENAK)"
+          placeholder="Kode Promo (MAKANENAK)"
           :disabled="discountCodeApplied"
           @keyup.enter="handleApply"
         />
@@ -111,6 +111,7 @@ const handleApply = () => {
 .order-summary-column {
   position: sticky;
   top: 1.5rem;
+  width: 100%;
 }
 
 .summary-card {
@@ -119,31 +120,63 @@ const handleApply = () => {
   border: 1px solid #e2e8f0;
   padding: 1.75rem;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .summary-card {
+    padding: 1.15rem 1rem;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .summary-card {
+    padding: 1rem 0.8rem;
+  }
 }
 
 .summary-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: #1e293b;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 600px) {
+  .summary-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .voucher-box {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 .voucher-input {
   flex: 1;
+  min-width: 0;
   background-color: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 9999px;
-  padding: 0.65rem 1rem;
+  padding: 0.6rem 0.85rem;
   font-family: inherit;
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   outline: none;
   transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+@media (max-width: 380px) {
+  .voucher-input {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.75rem;
+  }
 }
 
 .voucher-input:focus {
@@ -155,12 +188,20 @@ const handleApply = () => {
   color: #ffffff;
   border: none;
   border-radius: 9999px;
-  padding: 0.65rem 1rem;
+  padding: 0.6rem 0.95rem;
   font-family: inherit;
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  flex-shrink: 0;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 380px) {
+  .btn-voucher {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.75rem;
+  }
 }
 
 .btn-voucher:hover:not(:disabled) {
@@ -175,23 +216,37 @@ const handleApply = () => {
 .summary-breakdown {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
+  width: 100%;
 }
 
 .breakdown-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.875rem;
+  font-size: 0.825rem;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .breakdown-row {
+    font-size: 0.875rem;
+    gap: 0.75rem;
+  }
 }
 
 .breakdown-row .label {
   color: #64748b;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .breakdown-row .value {
   font-weight: 600;
   color: #1e293b;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .promo-row .label,
@@ -208,39 +263,67 @@ const handleApply = () => {
 .summary-divider {
   height: 1px;
   background-color: #e2e8f0;
-  margin: 1.25rem 0;
+  margin: 1rem 0;
   border-top: 1px dashed #e2e8f0;
+}
+
+@media (min-width: 600px) {
+  .summary-divider {
+    margin: 1.25rem 0;
+  }
 }
 
 .total-row {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .total-row {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .total-text-group {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
 }
 
 .total-label {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #1e293b;
 }
 
 .tax-info {
-  font-size: 0.725rem;
+  font-size: 0.7rem;
   color: #94a3b8;
 }
 
 .total-amount {
-  font-size: 1.75rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: #ff5a1f;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (min-width: 480px) {
+  .total-amount {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .total-amount {
+    font-size: 1.3rem;
+  }
 }
 
 .btn-checkout {
@@ -248,18 +331,27 @@ const handleApply = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   background: linear-gradient(135deg, #ff6b35 0%, #ff3d00 100%);
   color: #ffffff;
   border: none;
   border-radius: 9999px;
-  padding: 0.95rem;
+  padding: 0.85rem;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(255, 90, 31, 0.3);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .btn-checkout {
+    padding: 0.95rem;
+    font-size: 1rem;
+    gap: 0.6rem;
+  }
 }
 
 .btn-checkout:hover {
@@ -273,14 +365,14 @@ const handleApply = () => {
 }
 
 .checkout-arrow {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
 
 .secure-note {
   text-align: center;
-  margin-top: 0.9rem;
-  font-size: 0.75rem;
+  margin-top: 0.85rem;
+  font-size: 0.725rem;
   color: #94a3b8;
 }
 </style>

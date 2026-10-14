@@ -13,7 +13,6 @@ import CartSummary from "./components/CartSummary.vue";
 const router = useRouter();
 const cartStore = useCartStore();
 
-
 const showToast = ref(false);
 const toastMessage = ref("");
 const discountCodeApplied = ref(false);
@@ -112,10 +111,19 @@ const handleCheckout = () => {
   color: #1e293b;
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   padding: 1.5rem 1rem 4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .cart-page {
+    padding: 1rem 0.75rem 3.5rem;
+  }
 }
 
 .cart-container {
   max-width: 1180px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -148,8 +156,9 @@ const handleCheckout = () => {
 .cart-content-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: start;
+  width: 100%;
 }
 
 @media (min-width: 960px) {

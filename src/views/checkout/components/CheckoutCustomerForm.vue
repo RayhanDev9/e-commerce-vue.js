@@ -16,7 +16,7 @@ defineProps<{
   <div class="checkout-card form-card">
     <div class="card-header">
       <span class="step-num">1</span>
-      <div>
+      <div class="header-text-group">
         <h2 class="card-title">Informasi Penerima & Alamat Antar</h2>
         <p class="card-subtitle">Kurir kami akan menghubungi dan mengantarkan makanan ke alamat ini</p>
       </div>
@@ -93,15 +93,31 @@ defineProps<{
   padding: 1.75rem;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
   margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 500px) {
+  .checkout-card {
+    padding: 1.15rem 1rem;
+    border-radius: 14px;
+    margin-bottom: 1.15rem;
+  }
 }
 
 .card-header {
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
   border-bottom: 1px dashed #e2e8f0;
+  width: 100%;
+}
+
+.header-text-group {
+  flex: 1;
+  min-width: 0;
 }
 
 .step-num {
@@ -118,28 +134,53 @@ defineProps<{
   flex-shrink: 0;
 }
 
+@media (max-width: 500px) {
+  .step-num {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+}
+
 .card-title {
   font-size: 1.15rem;
   font-weight: 800;
   color: #1e293b;
   margin: 0 0 0.2rem;
+  word-break: break-word;
+}
+
+@media (max-width: 500px) {
+  .card-title {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
 }
 
 .card-subtitle {
   font-size: 0.8rem;
   color: #64748b;
   margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 500px) {
+  .card-subtitle {
+    font-size: 0.75rem;
+  }
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.1rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 @media (min-width: 600px) {
   .form-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
   }
 }
 
@@ -150,13 +191,21 @@ defineProps<{
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .form-label {
   font-size: 0.825rem;
   font-weight: 700;
   color: #334155;
+}
+
+@media (max-width: 500px) {
+  .form-label {
+    font-size: 0.8rem;
+  }
 }
 
 .required {
@@ -166,7 +215,7 @@ defineProps<{
 .optional {
   font-weight: 500;
   color: #94a3b8;
-  font-size: 0.775rem;
+  font-size: 0.75rem;
 }
 
 .form-input,
@@ -176,12 +225,21 @@ defineProps<{
   background-color: #f8fafc;
   border: 1px solid #cbd5e1;
   border-radius: 12px;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.9rem;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: #1e293b;
   outline: none;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 500px) {
+  .form-input,
+  .form-textarea {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.825rem;
+    border-radius: 10px;
+  }
 }
 
 .form-input:focus,

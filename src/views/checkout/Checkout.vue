@@ -141,28 +141,33 @@ const handleSubmitOrder = async () => {
 </template>
 
 <style scoped>
-/* ==========================================================================
-   THEME KONSISTENSI THAM.TXT (CHECKOUT VIEW)
-   ========================================================================== */
-
 .checkout-page {
   min-height: 100vh;
-  background-color: #f8fafc; /* Slate 50 */
-  color: #1e293b; /* Slate 800 */
+  background-color: #f8fafc;
+  color: #1e293b;
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   padding: 1.5rem 1rem 4rem;
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  .checkout-page {
+    padding: 1rem 0.75rem 3.5rem;
+  }
 }
 
 .checkout-container {
   max-width: 1180px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .checkout-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: start;
+  width: 100%;
 }
 
 @media (min-width: 960px) {
@@ -175,5 +180,7 @@ const handleSubmitOrder = async () => {
 .checkout-forms-column {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
 }
 </style>
